@@ -12,6 +12,16 @@ class ViewPatient extends ViewRecord
 {
     protected static string $resource = PatientResource::class;
 
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\Action::make('back')
+                ->label('Back')
+                ->url(PatientResource::getUrl('index'))
+                ->color('gray'),
+        ];
+    }
+
     public function infolist(Infolist $infolist): Infolist
     {
         return $infolist

@@ -24,14 +24,14 @@ class ListPatients extends ListRecords
         ];
     }
 
-    protected function getHeaderWidgets(): array
-    {
-        return [
-            PatientOverview::make([
-//                'type' => 'rabbit', truyen tham so sang widget
-            ]),
-        ];
-    }
+//    protected function getHeaderWidgets(): array
+//    {
+//        return [
+//            PatientOverview::make([
+////                'type' => 'rabbit', truyen tham so sang widget
+//            ]),
+//        ];
+//    }
 
     public function getTabs(): array
     {

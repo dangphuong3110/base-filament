@@ -11,12 +11,15 @@ use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 use BezhanSalleh\FilamentShield\Traits\HasShieldFormComponents;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\GlobalSearch\Actions\Action;
+use Filament\Tables\Actions\Action;
 use Filament\Infolists\Components\Grid;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Collection;
 
 class PatientResource extends Resource implements HasShieldPermissions
 {
@@ -109,31 +112,38 @@ class PatientResource extends Resource implements HasShieldPermissions
                         'dog' => 'Dog',
                         'rabbit' => 'Rabbit',
                     ]),
-            ])
+            ], layout: FiltersLayout::Modal)
+//            ->hiddenFilterIndicators() // ẩn chi tiết bộ lọc đã áp dụng
             ->actions([
-                Tables\Actions\ViewAction::make()
-                    ->label('Xem')
-                    ->modalHeading('Thông tin bệnh nhân')
-                    ->modalSubmitAction(false)
-                    ->modalCancelActionLabel('Đóng')
-                    ->infolist([
-                        Grid::make(2)->schema([
-                            TextEntry::make('name')->label('Tên'),
-                            TextEntry::make('type')->label('Loài'),
-                            TextEntry::make('date_of_birth')->label('Ngày sinh')->date('d/m/Y'),
-                            TextEntry::make('owner.name')->label('Chủ sở hữu'),
+//                ActionGroup::make([ // sử dụng ActionGroup để nhóm các hành động vào icon menu
+                    Tables\Actions\ViewAction::make()
+                        ->label('Xem')
+                        ->modalHeading('Thông tin bệnh nhân')
+                        ->modalSubmitAction(false)
+                        ->modalCancelActionLabel('Đóng')
+                        ->infolist([
+                            Grid::make(2)->schema([
+                                TextEntry::make('name')->label('Tên'),
+                                TextEntry::make('type')->label('Loài'),
+                                TextEntry::make('date_of_birth')->label('Ngày sinh')->date('d/m/Y'),
+                                TextEntry::make('owner.name')->label('Chủ sở hữu'),
+                            ]),
                         ]),
-                    ]),
-                Tables\Actions\EditAction::make()
-                    ->label('Sửa'),
-                Tables\Actions\DeleteAction::make()
-                    ->label('Xóa'),
+                    Tables\Actions\EditAction::make()
+                        ->label('Sửa'),
+                    Tables\Actions\DeleteAction::make()
+                        ->label('Xóa'),
+//                ])->tooltip('Actions')->size(ActionSize::Small),
             ])
+            ->extremePaginationLinks() // hiển thị nút tới trang cuối/trang đầu tiên paginate
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+//            ->checkIfRecordIsSelectableUsing(
+//                fn (Model|\Illuminate\Database\Eloquent\Model $record): bool => $record->type === 'cat', // chỉ cho phép chọn checkbox type = cat
+//            );
     }
 
     public static function getRelations(): array
@@ -196,12 +206,5 @@ class PatientResource extends Resource implements HasShieldPermissions
     public static function getNavigationBadgeColor(): ?string // customize mau sac cua badge
     {
         return static::getModel()::count() > 10 ? 'danger' : 'success';
-    }
-
-    public static function getWidgets(): array
-    {
-        return [
-            PatientOverview::class,
-        ];
     }
 }
