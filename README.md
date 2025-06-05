@@ -1,61 +1,102 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Base Filament Project
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Chào mừng bạn đến với **Base Filament**, một dự án mẫu sử dụng **Laravel Filament** để xây dựng giao diện quản trị mạnh mẽ và dễ tùy chỉnh. Hướng dẫn này sẽ giúp bạn cài đặt dự án và làm quen với các lệnh Filament phổ biến.
 
-## About Laravel
+## 📋 Yêu cầu hệ thống
+- **PHP**: >= 8.1
+- **Composer**: Phiên bản mới nhất
+- **Node.js & npm** (hoặc Yarn) để biên dịch tài nguyên frontend
+- **Cơ sở dữ liệu**: MySQL, SQLite, hoặc tương thích
+- **Web server**: Apache, Nginx, hoặc server tích hợp của Laravel
+- **Git**: Để clone repository
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🚀 Cài đặt dự án
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 1. Clone dự án
+Clone repository từ GitHub và di chuyển vào thư mục dự án:
+```bash
+git clone https://github.com/dangphuong3110/base-filament.git
+cd base-filament
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 2. Cài đặt dependencies
+Cài đặt các gói PHP cần thiết thông qua Composer:
+```bash
+composer install
+```
 
-## Learning Laravel
+### 3. Cấu hình file môi trường
+Sao chép file `.env.example` để tạo file `.env`:
+```bash
+cp .env.example .env
+```
+Mở file `.env` bằng trình soạn thảo (như VS Code) và cấu hình thông tin cơ sở dữ liệu:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database_name
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 4. Tạo khóa ứng dụng
+Tạo khóa ứng dụng cho Laravel:
+```bash
+php artisan key:generate
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 5. Chạy migration
+Tạo các bảng trong cơ sở dữ liệu:
+```bash
+php artisan migrate
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 6. Khởi động dự án
+Chạy server tích hợp của Laravel:
+```bash
+php artisan serve
+```
+Truy cập giao diện quản trị tại:  
+🔗 **[http://localhost:8000/admin](http://localhost:8000/admin)**  
+Đăng ký tài khoản hoặc đăng nhập để sử dụng hệ thống.
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🛠 Các lệnh Artisan phổ biến trong Filament
 
-### Premium Partners
+Dưới đây là danh sách các lệnh Artisan thường dùng khi làm việc với Filament, giúp bạn tạo và quản lý các thành phần như resource, page, widget, v.v.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+| **Lệnh** | **Mô tả** |
+|----------|-----------|
+| **`php artisan make:filament-resource <NameResource>`** | Tạo resource để quản lý CRUD cho model. Tạo các file như:<br>- `NameResource.php`<br>- `NameResource/Pages/ListNameResources.php`<br>- `NameResource/Pages/CreateNameResource.php`<br>- `NameResource/Pages/EditNameResource.php`<br>**Tùy chọn**: `--generate` để tự động tạo form và table.<br>Ví dụ:<br>- ```php artisan make:filament-resource Post --generate```<br>- 📖 Xem thêm: [Filament Resources](https://filamentphp.com/docs/3.x/panels/resources/getting-started) |
+| **`php artisan make:filament-page <NamePage>`** | Tạo trang tùy chỉnh (Livewire component) không liên quan trực tiếp đến resource. |
+| **`php artisan make:filament-panel <NamePanel>`** | Tạo panel mới để hỗ trợ đa panel trong ứng dụng. |
+| **`php artisan make:filament-relation-manager <NameResource> <NameRelationship> <NameColumn>`** | Tạo relation manager để quản lý các bản ghi liên quan trên trang chỉnh sửa.<br>Ví dụ:<br>```php artisan make:filament-relation-manager PatientResource treatments description``` |
+| **`php artisan make:filament-widget <NameWidget> [--chart]`** | Tạo widget (thống kê hoặc biểu đồ) cho dashboard. Tùy chọn `--chart` tạo widget dạng biểu đồ (Chart.js).<br>Ví dụ:<br>```php artisan make:filament-widget TreatmentsChart --chart``` |
+| **`php artisan filament:optimize`** | Cache các thành phần Filament và Blade icons để tối ưu hiệu suất. Nên chạy trong quá trình triển khai. |
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 🔧 Mẹo và lưu ý
+- **Debug lỗi**: Kiểm tra log tại `storage/logs/laravel.log` nếu gặp sự cố. Chạy `composer dump-autoload` hoặc `php artisan cache:clear` để làm mới cấu hình.
+- **Quyền thư mục**: Đảm bảo thư mục `storage` và `bootstrap/cache` có quyền ghi. Ví dụ:
+  ```bash
+  chmod -R 775 storage bootstrap/cache
+  ```
+- **Cập nhật dependency**: Chạy `composer update` để đảm bảo các gói mới nhất.
+- **Tùy chỉnh giao diện**: Các thay đổi về giao diện và logic CMS thường được thực hiện trong các file resource (`List*.php`, `Create*.php`, `Edit*.php`).
 
-## Code of Conduct
+## 📚 Tài liệu tham khảo
+- [Filament PHP Documentation](https://filamentphp.com/docs)
+- [Laravel Documentation](https://laravel.com/docs)
+- Repository: [dangphuong3110/base-filament](https://github.com/dangphuong3110/base-filament)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 🙋 Hỗ trợ
+Nếu bạn gặp vấn đề hoặc cần hỗ trợ thêm, hãy:
+- Mở issue trên [GitHub](https://github.com/dangphuong3110/base-filament/issues).
+- Liên hệ tác giả qua email hoặc các kênh được cung cấp trong repository.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Chúc bạn thành công với dự án! 🎉
