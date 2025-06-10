@@ -35,7 +35,11 @@ class CreateUser extends CreateRecord
                     TextInput::make('email')
                         ->email()
                         ->required()
-                        ->maxLength(255),
+                        ->maxLength(255)
+                        ->rules(['unique:users,email'])
+                        ->validationMessages([
+                            'unique' => 'Email này đã được sử dụng',
+                        ]),
                     TextInput::make('password')
                         ->password()
                         ->required()

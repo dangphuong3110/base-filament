@@ -27,8 +27,8 @@ class CreatePatient extends CreateRecord
     protected function getCreatedNotification(): ?Notification
     {
         return Notification::make()
-            ->success()
             ->title('Patient registered')
+            ->success()
             ->body('The patient has been created successfully.');
     }
 }

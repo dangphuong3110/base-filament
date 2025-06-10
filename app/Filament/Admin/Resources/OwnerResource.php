@@ -24,18 +24,19 @@ class OwnerResource extends Resource implements HasShieldPermissions
 
     protected static ?string $model = Owner::class;
 
+    protected static int $globalSearchResultsLimit = 20;  // limit so ket qua tim kiem toan cuc
+
+    protected static ?string $modelLabel = 'Chủ sở hữu'; // customize nhan cua model
+
+    protected static bool $hasTitleCaseModelLabel = false; // khong viet hoa chu cai dau tien trong nhan cua model
+
     protected static ?string $activeNavigationIcon = 'heroicon-s-user-group'; // icon hien thi khi trang hien tai dang duoc chon
 
-    // limit so ket qua tim kiem toan cuc
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
-
-    protected static int $globalSearchResultsLimit = 20;
-
-    protected static ?string $navigationLabel = 'Owners'; // customize nhan dieu huong ben trai
 
     protected static ?string $navigationBadgeTooltip = 'The number of owners in the system'; // customize tooltip hien thi khi hover vao badge
 
-    protected static ?string $navigationGroup = 'Hospital Management'; // customize nhom dieu huong ben trai
+    protected static ?string $navigationGroup = 'Quản lý bệnh viện'; // customize nhom dieu huong ben trai
 
     public static function getPermissionPrefixes(): array
     {
@@ -78,7 +79,7 @@ class OwnerResource extends Resource implements HasShieldPermissions
                 Tables\Columns\TextColumn::make('phone')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->dateTime('d/m/Y H:i:s')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
@@ -98,8 +99,10 @@ class OwnerResource extends Resource implements HasShieldPermissions
                             TextEntry::make('phone')->label('Số điện thoại'),
                         ]),
                     ]),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->label('Sửa'),
+                Tables\Actions\DeleteAction::make()
+                    ->label('Xóa'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -156,10 +159,10 @@ class OwnerResource extends Resource implements HasShieldPermissions
         return static::getModel()::count();
     }
 
-    public static function getNavigationBadgeColor(): ?string // customize mau sac cua badge
-    {
-        return static::getModel()::count() > 10 ? 'danger' : 'success';
-    }
+//    public static function getNavigationBadgeColor(): ?string // customize mau sac cua badge
+//    {
+//        return static::getModel()::count() > 10 ? 'danger' : 'success';
+//    }
 
     public static function getPages(): array
     {

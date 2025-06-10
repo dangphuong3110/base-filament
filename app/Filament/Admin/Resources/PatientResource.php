@@ -29,15 +29,17 @@ class PatientResource extends Resource implements HasShieldPermissions
 
     protected static int $globalSearchResultsLimit = 20; // limit so ket qua tim kiem toan cuc
 
+    protected static ?string $modelLabel = 'Bệnh nhân'; // customize ten cua model
+
+    protected static bool $hasTitleCaseModelLabel = false; // khong viet hoa chu cai dau tien trong ten cua model
+
     protected static ?string $navigationIcon = 'heroicon-o-user';
 
     protected static ?string $activeNavigationIcon = 'heroicon-s-user'; // icon hien thi khi trang hien tai dang duoc chon
 
-    protected static ?string $navigationLabel = 'Patients'; // customize nhan dieu huong ben trai
-
     protected static ?string $navigationBadgeTooltip = 'The number of patients in the system'; // customize tooltip hien thi khi hover vao badge
 
-    protected static ?string $navigationGroup = 'Hospital Management'; // customize nhom dieu huong ben trai
+    protected static ?string $navigationGroup = 'Quản lý bệnh viện'; // customize nhom dieu huong ben trai
 
     public static function getPermissionPrefixes(): array
     {
@@ -128,7 +130,7 @@ class PatientResource extends Resource implements HasShieldPermissions
                                 TextEntry::make('date_of_birth')->label('Ngày sinh')->date('d/m/Y'),
                                 TextEntry::make('owner.name')->label('Chủ sở hữu'),
                             ]),
-                        ]),
+                        ])->slideOver(),
                     Tables\Actions\EditAction::make()
                         ->label('Sửa'),
                     Tables\Actions\DeleteAction::make()
@@ -203,8 +205,8 @@ class PatientResource extends Resource implements HasShieldPermissions
         return static::getModel()::count();
     }
 
-    public static function getNavigationBadgeColor(): ?string // customize mau sac cua badge
-    {
-        return static::getModel()::count() > 10 ? 'danger' : 'success';
-    }
+//    public static function getNavigationBadgeColor(): ?string // customize mau sac cua badge
+//    {
+//        return static::getModel()::count() > 10 ? 'danger' : 'success';
+//    }
 }

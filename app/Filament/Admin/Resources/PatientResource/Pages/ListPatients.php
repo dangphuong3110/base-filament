@@ -39,8 +39,9 @@ class ListPatients extends ListRecords
             'all' => Tab::make()->icon('heroicon-m-user-group'),
             'dog' => Tab::make()
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('type', 'dog'))
-                ->badge(Patient::query()->where('type', 'dog')->count())->badgeColor('success')
-                ->icon('heroicon-m-user')->iconPosition(IconPosition::After),
+                ->badge(Patient::query()->where('type', 'dog')->count())->badgeColor('primary')
+                ->icon('heroicon-m-user'),
+//                ->iconPosition(IconPosition::After),
             'cat' => Tab::make()
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('type', 'cat')),
             'rabbit' => Tab::make()

@@ -25,6 +25,10 @@ class UserResource extends Resource implements HasShieldPermissions
 
     protected static ?string $model = User::class;
 
+    protected static ?string $modelLabel = 'Người dùng'; // customize ten cua model
+
+    protected static bool $hasTitleCaseModelLabel = false; // khong viet hoa chu cai dau tien trong ten cua model
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function getPermissionPrefixes(): array
@@ -127,4 +131,14 @@ class UserResource extends Resource implements HasShieldPermissions
             ->label('Roles')
             ->preload();
     }
+
+    public static function getNavigationBadge(): ?string // customize so luong hien thi trong badge
+    {
+        return static::getModel()::count();
+    }
+
+//    public static function getNavigationBadgeColor(): ?string // customize mau sac cua badge
+//    {
+//        return static::getModel()::count() > 10 ? 'danger' : 'success';
+//    }
 }
