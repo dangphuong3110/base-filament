@@ -85,19 +85,13 @@ Generate permission cho các role:
 php artisan shield:generate --all
 ```
 
-### 8. Tạo role super admin:
-Tạo role super admin cho người dùng:
-```bash
-php artisan shield:super-admin
-```
-
-### 9. Seed dữ liệu permission/role:
+### 8. Seed dữ liệu permission/role:
 Seed dữ liệu permission/role:
 ```bash
 php artisan db:seed --class=ShieldSeeder
 ```
 
-### 10. Sử dụng tinker để assign role:
+### 9. Sử dụng tinker để assign role:
 Sử dụng tinker để assign role cho người dùng:
 ```bash
 php artisan tinker
