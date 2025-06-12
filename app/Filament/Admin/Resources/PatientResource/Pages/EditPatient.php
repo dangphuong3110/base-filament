@@ -35,6 +35,8 @@ class EditPatient extends EditRecord
 
     protected function getSavedNotification(): ?Notification
     {
+        $user = auth()->user();
+
         $patient = $this->getRecord();
 
         return Notification::make()
@@ -51,6 +53,6 @@ class EditPatient extends EditRecord
                     ->url(route('admin.patients.undo', ['patient' => $patient->id]))
                     ->close(),
             ])
-            ->send();
+            ->sendToDatabase($user);
     }
 }

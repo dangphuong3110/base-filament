@@ -12,6 +12,8 @@ class Dashboard extends BaseDashboard
 {
     protected static ?string $navigationIcon = 'heroicon-o-home'; // tuỳ chỉnh icon nếu muốn
 
+    protected static ?string $activeNavigationIcon = 'heroicon-s-home';
+
     protected function getHeaderWidgets(): array
     {
         return [

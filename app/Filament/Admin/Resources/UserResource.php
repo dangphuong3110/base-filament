@@ -11,6 +11,7 @@ use Filament\Forms;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
+use Filament\GlobalSearch\Actions\Action;
 use Filament\Infolists\Components\Grid;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Resource;
@@ -30,6 +31,8 @@ class UserResource extends Resource implements HasShieldPermissions
     protected static bool $hasTitleCaseModelLabel = false; // khong viet hoa chu cai dau tien trong ten cua model
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    protected static ?string $activeNavigationIcon = 'heroicon-s-rectangle-stack';
 
     public static function getPermissionPrefixes(): array
     {
@@ -130,6 +133,37 @@ class UserResource extends Resource implements HasShieldPermissions
             ->relationship('roles', 'name')
             ->label('Roles')
             ->preload();
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['name', 'email'];
+    }
+
+    public static function getGlobalSearchResultDetails(Model|\Illuminate\Database\Eloquent\Model $record): array
+    {
+        // Customize hien thi chi tiet ket qua tim kiem toan cuc
+        return [
+            'Name' => $record->name,
+            'Email' => $record->email,
+        ];
+    }
+
+    public static function getGlobalSearchResultUrl(Model|\Illuminate\Database\Eloquent\Model $record): string
+    {
+        // link chuyen huong sau khi bam vao ban ghi
+        return self::getUrl('edit', ['record' => $record]);
+    }
+
+    public static function getGlobalSearchResultActions(Model|\Illuminate\Database\Eloquent\Model $record): array
+    {
+        // cac hanh dong hien thi trong ket qua tim kiem toan cuc
+        return [
+            Action::make('edit')
+                ->label('Sửa')
+                ->button()
+                ->url(static::getUrl('edit', ['record' => $record]), true),
+        ];
     }
 
     public static function getNavigationBadge(): ?string // customize so luong hien thi trong badge

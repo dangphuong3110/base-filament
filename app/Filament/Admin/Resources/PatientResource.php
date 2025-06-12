@@ -130,7 +130,8 @@ class PatientResource extends Resource implements HasShieldPermissions
                                 TextEntry::make('date_of_birth')->label('Ngày sinh')->date('d/m/Y'),
                                 TextEntry::make('owner.name')->label('Chủ sở hữu'),
                             ]),
-                        ])->slideOver(),
+                        ])
+                        ->slideOver(),
                     Tables\Actions\EditAction::make()
                         ->label('Sửa'),
                     Tables\Actions\DeleteAction::make()
@@ -196,6 +197,7 @@ class PatientResource extends Resource implements HasShieldPermissions
         // cac hanh dong hien thi trong ket qua tim kiem toan cuc
         return [
             Action::make('edit')
+                ->label('Sửa')
                 ->url(static::getUrl('edit', ['record' => $record]), true),
         ];
     }

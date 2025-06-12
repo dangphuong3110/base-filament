@@ -118,6 +118,15 @@ class OwnerResource extends Resource implements HasShieldPermissions
         ];
     }
 
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListOwners::route('/'),
+            'create' => Pages\CreateOwner::route('/create'),
+            'edit' => Pages\EditOwner::route('/{record}/edit'),
+        ];
+    }
+
     public static function getEloquentQuery(): Builder
     {
         // dieu kien toan bo query
@@ -150,6 +159,8 @@ class OwnerResource extends Resource implements HasShieldPermissions
         // cac hanh dong hien thi trong ket qua tim kiem toan cuc
         return [
             Action::make('edit')
+                ->label('Sửa')
+                ->button()
                 ->url(static::getUrl('edit', ['record' => $record]), true),
         ];
     }
@@ -163,13 +174,4 @@ class OwnerResource extends Resource implements HasShieldPermissions
 //    {
 //        return static::getModel()::count() > 10 ? 'danger' : 'success';
 //    }
-
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ListOwners::route('/'),
-            'create' => Pages\CreateOwner::route('/create'),
-            'edit' => Pages\EditOwner::route('/{record}/edit'),
-        ];
-    }
 }

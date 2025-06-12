@@ -31,6 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->colors([
                 'primary' => Color::Blue,
+                'gray' => Color::Sky
             ])
             ->font('Inter')
             ->brandName('Base Filament Admin')
