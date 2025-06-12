@@ -78,6 +78,33 @@ Dưới đây là danh sách các lệnh Artisan thường dùng khi làm việc
 
 ---
 
+
+### 7. Generate permissions/policies:
+Generate permission cho các role:
+```bash
+php artisan shield:generate --all
+```
+
+### 8. Tạo role super admin:
+Tạo role super admin cho người dùng:
+```bash
+php artisan shield:super-admin
+```
+
+### 9. Seed dữ liệu permission/role:
+Seed dữ liệu permission/role:
+```bash
+php artisan db:seed --class=ShieldSeeder
+```
+
+### 10. Sử dụng tinker để assign role:
+Sử dụng tinker để assign role cho người dùng:
+```bash
+php artisan tinker
+> $user = User::find(1);
+> $user->assignRole('super_admin');
+```
+
 ## 🔧 Mẹo và lưu ý
 - **Debug lỗi**: Kiểm tra log tại `storage/logs/laravel.log` nếu gặp sự cố. Chạy `composer dump-autoload` hoặc `php artisan cache:clear` để làm mới cấu hình.
 - **Quyền thư mục**: Đảm bảo thư mục `storage` và `bootstrap/cache` có quyền ghi. Ví dụ:
