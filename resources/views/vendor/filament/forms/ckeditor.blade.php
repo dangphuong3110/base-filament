@@ -13,8 +13,37 @@
         <div wire:ignore>
             <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
             <script type="text/javascript">
+                function createCKEditor() {
+                    CKEDITOR.replace('ckeditor-{{ $name }}', {
+                        language: 'vi',
+                        height: 500,
+                        extraPlugins: 'base64image',
+                        // Optional autosave-style hook
+                        on: {
+                            change: function (evt) {
+                                Livewire.dispatch('contentUpdated', {
+                                    content: evt.editor.getData(),
+                                    editor: 'ckeditor-{{ $name }}'
+                                });
+                            },
+                            paste: function (evt) {
+                                setTimeout(function () {
+                                    const editor = evt.editor;
+                                    const images = editor.document.find('img');
+                                    for (let i = 0; i < images.count(); i++) {
+                                        const img = images.getItem(i);
+                                        img.setAttribute('style', 'display: block; margin: 0 auto; width: 100%; height: auto;');
+                                    }
+                                }, 100);
+                            }
+                        },
+                        @isset($uploadUrl)
+                        filebrowserUploadUrl: '{{ $uploadUrl }}',
+                        filebrowserUploadMethod: 'form',
+                        @endisset
+                    });
 
-
+                }
 
             </script>
             <div

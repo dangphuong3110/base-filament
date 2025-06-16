@@ -40,9 +40,9 @@ class EditPatient extends EditRecord
         $patient = $this->getRecord();
 
         return Notification::make()
-            ->title('User updated')
+            ->title('Patient updated')
             ->success()
-            ->body('The user has been saved successfully.')
+            ->body('The patient has been saved successfully.')
             ->actions([
                 Action::make('view')
                     ->button()
@@ -52,7 +52,6 @@ class EditPatient extends EditRecord
                     ->color('gray')
                     ->url(route('admin.patients.undo', ['patient' => $patient->id]))
                     ->close(),
-            ])
-            ->sendToDatabase($user);
+            ]);
     }
 }

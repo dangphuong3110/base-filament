@@ -69,6 +69,7 @@ class AdminPanelProvider extends PanelProvider
             ->sidebarCollapsibleOnDesktop() // Collapsible sidebar on desktop
 //            ->topNavigation() // custom top navigation
             ->databaseNotifications()
+            ->databaseNotificationsPolling('10s')
             ->authMiddleware([
                 Authenticate::class,
             ]);
